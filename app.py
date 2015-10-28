@@ -1,10 +1,10 @@
-from flask import Flask
+import tweepy
 
-app = Flask(__name__)
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
 
-@app.route('/')
-def index():
-    return "Hello, World!"
+api = tweepy.API(auth)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+public_tweets = api.home_timeline()
+for tweet in public_tweets:
+    print tweet.text
